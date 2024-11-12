@@ -5,6 +5,6 @@ RUN mvn clean package -DskipTests
 
 
 FROM tomcat:10.1-jdk17-corretto
-COPY --from=build target/PlumberApp.war /app/PlumberApp.war
+COPY --from=build /app/target/PLUMBERAPP.war /app/PlumberApp.war
 EXPOSE 8088
 CMD ["catalina.sh", "run"]
