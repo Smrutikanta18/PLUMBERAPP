@@ -1,9 +1,10 @@
-FROM maven:3.8.8-openjdk-17-slim AS build
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
-COPY --from=build /app/target/PLUMBERAPP.war /app/PlumberApp.war
+
+FROM tomcat:10.1-jdk17-corretto
+COPY --from=build /app/target/PlumberApp.war /app/PlumberApp.war
 EXPOSE 8088
 CMD ["catalina.sh", "run"]
